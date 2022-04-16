@@ -1,27 +1,28 @@
-const videoElelment = document.getElementById('video');
 const button = document.getElementById('button');
+const input = document.getElementById('input');
+const span = document.getElementById('span');
+const err = document.getElementById('err');
 
-// Promt to select media stream, pass to video element, then play
-async function selectMediaStream() {
-    try {
-        const mediaStream = await navigator.mediaDevices.getDisplayMedia();
-        videoElelment.srcObject = mediaStream;
-        videoElelment.onloadedmetadata = () => {
-            videoElelment.play();
-        }
-    } catch (error) {
-        console.log('whoops, error here:', error)
+
+
+
+
+async function getDateFromApi() {
+    let gregorianDate = input.value.split("-");
+    if(gregorianDate.length === 3){
+        axios.get(`https://www.hebcal.com/converter?cfg=json&gy=${gregorianDate[0]}&gm=${gregorianDate[1]}&gd=${gregorianDate[2]}&g2h=1`).then(res => { 
+            console.log(res);
+            span.innerHTML = res.data.hebrew;
+            err.innerHTML = ""
+
+        }).catch(error => console.error("error:", error));
+    
+    }else{
+        err.innerHTML = "יש לבחור תאריך"
     }
+
 }
 
-button.addEventListener('click', async() => {
-    //Disable button
-    button.disable = true;
-    //Start Picture in Picture
-    await videoElelment.requestPictureInPicture();
-    //Reset Button
-    button.disable = false;
+button.addEventListener('click', async () => {
+    getDateFromApi();
 });
-
-//Onload
-selectMediaStream();

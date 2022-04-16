@@ -13,17 +13,25 @@
 </head>
 
 <body>
-    <!-- Video -->
-    <video src="" id="video" controls height="360" width="640" hidden></video>
-    <!-- Button -->
-    <div class="buton-container">
-        <button id="button">START</button>
-    </div>
+
+    <section>
+        <input type="date" id="input"> <br>
+        <div id="button-container">
+            <button id="button">CONVERT</button>
+        </div>
+        <div id="date">
+            <br><span id="span"></span>
+            <p id="err">
+            </p>
+        </div>
+    </section>
+
 
 
 
     <!-- Script -->
     <script src="script.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
